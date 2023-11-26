@@ -29,6 +29,7 @@ clean:
 
 dep:
 	go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
+	go install github.com/goreleaser/goreleaser@latest
 
 run:
 	go run main.go

@@ -1,0 +1,15 @@
+builds:
+  - binary: unifireserata
+    goos:
+      - linux
+      - windows
+    goarch:
+      - amd64
+    hooks:
+      pre: go generate
+
+release:
+  prerelease: auto
+
+checksum:
+  disable: false
