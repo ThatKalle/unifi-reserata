@@ -104,6 +104,7 @@ func main() {
 		fmt.Printf("Error reading file %s: %s\n", selectedfile, err)
 		return
 	}
+
 	decrypted, err := AESDecrypt(file)
 	if err != nil {
 		fmt.Println("Error during decryption:", err)
