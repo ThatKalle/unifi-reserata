@@ -45,7 +45,7 @@ go mod download
 go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
 ```
 
-Run the [`go generate`](https://pkg.go.dev/cmd/go#hdr-Generate_Go_files_by_processing_source) command to build the `resource.syso` needed to set Windows `.exe` versioninfo using [goversioninfo](github.com/josephspurrier/goversioninfo).
+Run the [`go generate`](https://pkg.go.dev/cmd/go#hdr-Generate_Go_files_by_processing_source) command to build the `resource.syso` needed to set Windows `.exe` versioninfo using [goversioninfo](https://github.com/josephspurrier/goversioninfo).
 
 Build the package using the [`go build`](https://pkg.go.dev/cmd/go#hdr-Build_and_test_caching) command:
 ```go
