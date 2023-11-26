@@ -5,8 +5,7 @@
 *.so
 *.dylib
 *.syso
-unifireserata-linux
-*.zip
+bin/unifireserata*
 
 # Test binary, built with `go test -c`
 *.test
@@ -17,3 +16,4 @@ go.work
 # UniFi targets
 *.supp
 *.unf
+*.zip
