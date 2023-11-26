@@ -29,11 +29,11 @@ Select a File
 ```
 
 A `.zip` file with the same name as the file selected will be created in the same directory.\
-This .zip file can be browsed using [7ip](https://www.7-zip.org/download.html).
+This .zip file can be browsed using [7-Zip](https://www.7-zip.org/download.html).
 
 ## ⚡️ Quick start
 
-Head over to the repository's [Release page](https://github.com/ThatKalle/unifi-reserata/releases), if you want to download a ready-made Windows or Linux packages build by [GoReleaser](https://goreleaser.com/).
+Head over to the repository's [Release page](https://github.com/ThatKalle/unifi-reserata/releases), if you want to download a ready-made Windows or Linux packages built with [GoReleaser](https://goreleaser.com/).
 
 ### Build from Source
 
