@@ -21,6 +21,9 @@ jobs:
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: '1.21.4'
+      - name: 🔨 Setup dependencies
+        run: |
+          go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
       - run: go generate
       - name: 🎁 GoReleaser
         uses: goreleaser/goreleaser-action@7ec5c2b0c6cdda6e8bbb49444bc797dd33d74dd8
