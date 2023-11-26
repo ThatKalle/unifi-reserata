@@ -1,4 +1,4 @@
-# UniFi Reserata
+# UniFi-Reserata
 
 Command-line tool to decrypt UniFi Controller backup and support files.
 
