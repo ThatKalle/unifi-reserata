@@ -7,9 +7,58 @@ import (
 	"crypto/cipher"
 	"encoding/hex"
 	"fmt"
+	"log"
 	"os"
 	"regexp"
+
+	"github.com/dixonwille/wmenu/v5"
 )
+
+type userInput struct {
+	option wmenu.Opt
+}
+
+func (u *userInput) optFunc(option wmenu.Opt) error {
+	u.option = option
+	return nil
+}
+
+func createMenu(p string, m []string, u *userInput) {
+	menu := wmenu.NewMenu(p)
+	menu.ChangeReaderWriter(os.Stdin, os.Stdout, os.Stderr)
+	for i, m := range m {
+		menu.Option(m, i, false, u.optFunc)
+	}
+
+	err := menu.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func findFiles(p string, r string) ([]string, error) {
+	var foundFiles []string
+	dir, err := os.Open(p)
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+
+	files, err := dir.Readdir(-1)
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+
+	for _, f := range files {
+		matched, _ := regexp.Match(r, []byte(f.Name()))
+		if matched {
+			foundFiles = append(foundFiles, f.Name())
+		}
+	}
+
+	return foundFiles, nil
+}
 
 func AESDecrypt(ciphertext []byte) ([]byte, error) {
 	key, _ := hex.DecodeString("626379616e676b6d6c756f686d617273")
@@ -31,17 +80,25 @@ func AESDecrypt(ciphertext []byte) ([]byte, error) {
 }
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Printf("Missing parameter, provide .supp or .unf file name.\nExample: %s network_support_20-11-2023.supp\n", os.Args[0])
-		return
+	path, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
 	}
-	selectedfile := fmt.Sprintf("%s", os.Args[1])
-	matched, _ := regexp.Match("(.*?)\\.(supp|unf)$", []byte(selectedfile))
-	if matched == false {
-		fmt.Printf("Provided parameter %s is not a .supp or .unf file name.\nExample: %s network_support_20-11-2023.supp\n", selectedfile, os.Args[0])
+
+	files, err := findFiles(path, "(.*?)\\.(supp|unf)$")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	if len(files) < 1 {
+		fmt.Println("No UniFi files found in the current directory.\nLooking for .supp or .unf files.")
 		return
 	}
 
+	u := &userInput{}
+	createMenu("Select a File", files, u)
+
+	selectedfile := u.option.Text
 	file, err := os.ReadFile(selectedfile)
 	if err != nil {
 		fmt.Printf("Error reading file %s: %s\n", selectedfile, err)
